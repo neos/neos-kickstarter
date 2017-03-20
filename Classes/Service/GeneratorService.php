@@ -62,6 +62,24 @@ class GeneratorService extends \Neos\Kickstarter\Service\GeneratorService
     }
 
     /**
+     * Generate a plugin package and fill it with boilerplate data.
+     *
+     * @param string $packageKey
+     * @return \Neos\Flow\Package\PackageInterface
+     */
+    public function generatePluginPackage($packageKey)
+    {
+        $packageInfo = $this->packageManager->createPackage($packageKey, [
+            'type' => 'neos-plugin',
+            "require" => [
+                "neos/neos" => "*"
+            ]
+        ]);
+
+        return $packageInfo;
+    }
+
+    /**
      * Generate a "Sites.xml" for the given package and name.
      *
      * @param string $packageKey

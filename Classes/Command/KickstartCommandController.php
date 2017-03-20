@@ -57,4 +57,28 @@ class KickstartCommandController extends CommandController
         $generatedFiles = $this->generatorService->generateSitePackage($packageKey, $siteName);
         $this->outputLine(implode(PHP_EOL, $generatedFiles));
     }
+
+    /**
+     * Kickstart a new plugin package
+     *
+     * This command generates a new plugin package with basic structure
+     *
+     * @param string $packageKey The packageKey for your plugin
+     * @return string
+     */
+    public function pluginCommand($packageKey)
+    {
+        if (!$this->packageManager->isPackageKeyValid($packageKey)) {
+            $this->outputLine('Package key "%s" is not valid. Only UpperCamelCase in the format "Vendor.PackageKey", please!', array($packageKey));
+            $this->quit(1);
+        }
+
+        if ($this->packageManager->isPackageAvailable($packageKey)) {
+            $this->outputLine('Package "%s" already exists.', array($packageKey));
+            $this->quit(1);
+        }
+
+        $generatedInfo = $this->generatorService->generatePluginPackage($packageKey);
+        $this->outputLine('New plugin "%s" is created in path: "%s".', array($packageKey, $generatedInfo->getPackagePath()));
+    }
 }
