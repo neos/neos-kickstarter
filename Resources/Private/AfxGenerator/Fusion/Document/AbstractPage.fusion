@@ -24,8 +24,6 @@ prototype({packageKey}:Document.AbstractPage) < prototype(Neos.Neos:Page) {
   }
 
   body = {packageKey}:Component.Template.Default {
-    @context.node = ${this.node}
-
     # Define template properties
     menu = Neos.Neos:Menu
     content = Neos.Fusion:Component {
