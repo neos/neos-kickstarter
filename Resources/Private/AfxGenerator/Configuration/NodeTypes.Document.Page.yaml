@@ -9,3 +9,6 @@
   childNodes:
     main:
       type: 'Neos.Neos:ContentCollection'
+  constraints:
+    nodeTypes:
+      '{packageKey}:Document.Homepage': true
